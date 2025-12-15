@@ -1,0 +1,29 @@
+<Files xmlrpc.php>
+Order Allow,Deny
+Deny from all
+</Files>
+<IfModule mod_headers.c>
+	Header set X-XSS-Protection "1; mode=block"
+	Header set X-Frame-Options SAMEORIGIN
+	Header set X-Content-Type-Options nosniff
+    Header set Strict-Transport-Security "max-age=31536000"
+    Header set Content-Security-Policy "default-src 'self' fonts.googleapis.com 'unsafe-inline' fonts.gstatic.com data: 'unsafe-eval' secure.gravatar.com vervangen-met-jouw-domeinnaam blob:"
+    Header set Referrer-Policy no-referrer
+    Header set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+</IfModule>
+
+# BEGIN WordPress
+# De richtlijnen (regels) tussen "BEGIN WordPress" en "END WordPress" worden
+# dynamisch gegenereerd en zouden alleen aangepast mogen worden via WordPress filters.
+# Alle wijzigingen aan de richtlijnen tussen deze markeringen worden overschreven.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress

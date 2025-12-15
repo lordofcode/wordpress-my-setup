@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^favicon\.ico$ /wp-content/themes/landingpage/favicon.png [L]
+</IfModule>
